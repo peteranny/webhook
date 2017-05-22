@@ -24,6 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/github', function(req, res, next){
+    child_process.exec('sh ./run.sh');
+    res.send('OK!!');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
