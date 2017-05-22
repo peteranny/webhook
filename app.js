@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var child_process = require('child_process');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -25,7 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/github', function(req, res, next){
-    child_process.exec('sh ./run.sh');
+    child_process.exec('sh ./run.sh', function(err, stdout){
+        console.log(stdout);
+    });
     res.send('OK!!');
 });
 
